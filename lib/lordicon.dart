@@ -34,10 +34,10 @@ class IconController extends ChangeNotifier {
     _state = state;
     _direction = direction ?? 1;
 
-    AssetProvider(assetName).load().then((value) => {
-          _composition = value,
-          notifyListeners(),
-        });
+    AssetProvider(assetName).load().then((value) {
+      _composition = value;
+      notifyListeners();
+    });
   }
 
   /// Creates a IconController instance that loads a Lottie composition from network.
@@ -48,13 +48,10 @@ class IconController extends ChangeNotifier {
     _state = state;
     _direction = direction ?? 1;
 
-    NetworkProvider(url)
-        .load()
-        .then((value) => {
-              _composition = value,
-              notifyListeners(),
-            })
-        .onError((error, stackTrace) => {});
+    NetworkProvider(url).load().then((value) {
+      _composition = value;
+      notifyListeners();
+    }).onError((error, stackTrace) {});
   }
 
   void _initialize(TickerProvider tickerProvider) {
@@ -229,7 +226,7 @@ class IconController extends ChangeNotifier {
   int get direction => _direction;
 
   /// Gets whether the controller is ready to play the animation.
-  get isReady => _tickerProvider != null;
+  bool get isReady => _tickerProvider != null;
 
   /// Gets whether the animation is currently playing.
   bool get isPlaying {
